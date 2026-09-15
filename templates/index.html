@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Crop Yield Prediction</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: url("https://images.unsplash.com/photo-1500382017468-9049fed747ef") no-repeat center center fixed;
+    background-size: cover;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    backdrop-filter: blur(6px);
+}
+
+.card {
+    background: rgba(255,255,255,0.95);
+    padding: 30px;
+    border-radius: 15px;
+    width: 420px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+h2 {
+    text-align: center;
+    color: #2e7d32;
+}
+
+label {
+    font-weight: 600;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background: #2e7d32;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #1b5e20;
+}
+
+.result {
+    text-align: center;
+    margin-top: 15px;
+    font-weight: bold;
+    font-size: 18px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<div class="card">
+
+<h2>🌾 Crop Yield Prediction</h2>
+
+<form action="/predict" method="post">
+
+<label>Crop</label>
+<select name="Crop">
+{% for crop, val in crops.items() %}
+<option value="{{ val }}">{{ crop }}</option>
+{% endfor %}
+</select>
+
+<label>Year</label>
+<input type="number" name="Crop_Year" required>
+
+<label>Season</label>
+<select name="Season">
+{% for season, val in seasons.items() %}
+<option value="{{ val }}">{{ season }}</option>
+{% endfor %}
+</select>
+
+<label>State</label>
+<select name="State">
+{% for state, val in states.items() %}
+<option value="{{ val }}">{{ state }}</option>
+{% endfor %}
+</select>
+
+<label>Area</label>
+<input type="number" name="Area" required>
+
+<label>Production</label>
+<input type="number" name="Production" required>
+
+<label>Rainfall</label>
+<input type="number" name="Annual_Rainfall" required>
+
+<label>Fertilizer</label>
+<input type="number" name="Fertilizer" required>
+
+<label>Pesticide</label>
+<input type="number" name="Pesticide" required>
+
+<button type="submit">🌱 Predict</button>
+
+</form>
+
+<div class="result">
+
+{% if prediction_text %}
+<p>{{ prediction_text }}</p>
+{% endif %}
+
+<p style="color:green;">
+🌱 Recommended Crop: {{ recommended_crop if recommended_crop else "Not Available" }}
+</p>
+
+</div>
+
+</div>
+</div>
+
+</body>
+</html>
